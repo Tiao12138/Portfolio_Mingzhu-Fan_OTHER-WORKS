@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- meta -->
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,500,500i,600,600i,700,700i|Playfair+Display:400,400i,700,700i,900,900i" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;700&display=swap" rel="stylesheet">
+  <!-- Main Stylesheet File -->
+  <link href="css/realdealstyl.css" rel="stylesheet">
+  <link href="css/2-1.css" rel="stylesheet">
+
+
+  <!-- Responsive css -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.2/mammoth.browser.min.js"></script>
+</head>
+
+<body style="position: relative;;">
+
+  <style>
+    .otherwork{
+      opacity: 0.2;
+      font-size: 4rem;
+      margin-top: 2rem;
+      margin-bottom: 0rem;
+      display: inline;    
+      font-weight: 500;
+    }
+  
+    .otherwork:hover{
+      opacity: 1;
+      cursor: pointer;
+    }
+
+    /* .background{
+      background-color: red;
+    } */
+
+    .background {
+      position: fixed; 
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.7s ease 0.3s;
+      z-index: 0;
+    }
+
+    /* .otherwork:hover ~ .background {
+      opacity: 0.6;
+      background-image: url('images/p3-1.png');
+    } */
+
+    .wrapper{
+      position: relative;
+      z-index: 1; 
+    }
+
+  </style>
+
+  <div class="wrapper">
+    <div class="category0">
+      <div class="category1">
+        <a href="https://tiao12138.github.io/Portfolio_Mingzhu-Fan_ABOUT-ME/" class="linkback" >ABOUT ME</a> 
+        <p class="separator"> ------ </p>
+        <a href="https://tiao12138.github.io/Portfolio_Mingzhu-Fan/" class="linkback">DESIGN PROJECTS</a> 
+        <p class="separator"> ------ </p>
+        <p class="link" nav-content="p3" style="color: #7953B3;">OTHER WORKS</p> 
+      </div>
+    </div>
+
+    <div id="nav-container"> </div>
+  </div>
+
+  <div class="background"></div>
+
+  <script src="js/realdeal.js"></script>
+  <!-- <script>
+    const otherWorks = document.querySelectorAll('.otherwork');
+      console.log(otherWorks);
+      const background = document.querySelector('.background');
+  
+      otherWorks.forEach(work => {
+        work.addEventListener('mouseenter', () => {
+          const bgImage = work.getAttribute('data-bg');
+          console.log('data-bg valid');
+          background.style.backgroundImage = `url(${bgImage})`;
+          background.style.opacity = '0.6';
+        });
+  
+        work.addEventListener('mouseleave', () => {
+          background.style.opacity = '0';
+        });
+      });
+  </script>  -->
+</body>
+
+</html>
+
