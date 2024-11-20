@@ -46,22 +46,6 @@ document.addEventListener("DOMContentLoaded", function () {
       .catch(error => console.error('Error loading content:', error));
   }   
 
-  // const otherWorks = document.querySelectorAll('.otherwork');
-  //     console.log(otherWorks);
-  //     const background = document.querySelector('.background');
-  
-  //     otherWorks.forEach(work => {
-  //       work.addEventListener('mouseenter', () => {
-  //         const bgImage = work.getAttribute('data-bg');
-  //         console.log('data-bg valid');
-  //         background.style.backgroundImage = `url(${bgImage})`;
-  //         background.style.opacity = '0.6';
-  //       });
-  
-  //       work.addEventListener('mouseleave', () => {
-  //         background.style.opacity = '0';
-  //       });
-  //     });
 
   function applyhoverbgeffct(){
     document.querySelectorAll('.otherwork').forEach(work=>{
@@ -73,9 +57,17 @@ document.addEventListener("DOMContentLoaded", function () {
   function showbg(work) {
     const bgImage = work.getAttribute('data-bg');
     const background = document.querySelector('.background');
-    background.style.backgroundImage = `url(${bgImage})`; 
-    background.style.opacity = '0.4';   
-  }
+
+    background.style.transition = 'opacity 0.7s ease 0.3s';
+    background.style.opacity = '0';
+
+    setTimeout(() => {
+        background.style.backgroundImage = `url(${bgImage})`;
+
+        background.style.transition = 'opacity 0.7s ease 0.3s';
+        background.style.opacity = '0.4';
+    }, 700); 
+}
   
   function hidebg(work) {
     const bgImage = work.getAttribute('data-bg');
@@ -103,6 +95,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     if (contentUrl3) {
       loadContent(contentUrl3); 
+      const background = document.querySelector('.background');
+      background.style.opacity = '0';
     }
   }
 
@@ -118,8 +112,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const hoverText = img.parentElement.querySelector('.hovertext');
     const hoverTextDisplay = document.getElementById('hover-text-display');
     if (hoverText && hoverTextDisplay) {
-      hoverTextDisplay.textContent = hoverText.textContent; // Update the dedicated container
-      hoverTextDisplay.classList.add('show'); // Show the text smoothly
+      hoverTextDisplay.textContent = hoverText.textContent; 
+      hoverTextDisplay.classList.add('show'); 
     }
   }
   
