@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
         navContainer.innerHTML = data;  
         applyHoverTextListeners();      
         applyP3ClickListeners();
-        applyhoverbgeffct();
+        applyhoverbgeffect();
   
         // Add scroll functionality and click listener for back-to-top button after content loads
         const backToTopButton = document.getElementById("backToTop");
@@ -46,8 +46,22 @@ document.addEventListener("DOMContentLoaded", function () {
       .catch(error => console.error('Error loading content:', error));
   }   
 
+  function loadContentP3(contentP3) {
+    let contentUrl3 = '';
+    switch (contentP3) {
+      case 'p3-1': contentUrl3 = 'p3-1.html'; break;
+      case 'p3-2': contentUrl3 = 'p3-2.html'; break;
+      case 'p3-3': contentUrl3 = 'p3-3.html'; break;
+      default: contentUrl3 = 'p3.html';
+    }
+    if (contentUrl3) {
+      loadContent(contentUrl3); 
+      const background = document.querySelector('.background');
+      background.style.opacity = '0';
+    }
+  }
 
-  function applyhoverbgeffct(){
+  function applyhoverbgeffect(){
     document.querySelectorAll('.otherwork').forEach(work=>{
       work.addEventListener('mouseover', () => showbg(work));
       work.addEventListener('mouseout', () => hidebg(work));
@@ -85,21 +99,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  function loadContentP3(contentP3) {
-    let contentUrl3 = '';
-    switch (contentP3) {
-      case 'p3-1': contentUrl3 = 'p3-1.html'; break;
-      case 'p3-2': contentUrl3 = 'p3-2.html'; break;
-      case 'p3-3': contentUrl3 = 'p3-3.html'; break;
-      default: contentUrl3 = 'p3.html';
-    }
-    if (contentUrl3) {
-      loadContent(contentUrl3); 
-      const background = document.querySelector('.background');
-      background.style.opacity = '0';
-    }
-  }
-
   function applyHoverTextListeners() {
     const images = document.querySelectorAll('.cover');
     images.forEach(img => {
@@ -126,5 +125,5 @@ document.addEventListener("DOMContentLoaded", function () {
 
   applyHoverTextListeners();
   applyP3ClickListeners();
-  applyhoverbgeffct();
+  applyhoverbgeffect();
 });
