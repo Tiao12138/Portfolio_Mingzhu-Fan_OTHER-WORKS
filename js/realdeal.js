@@ -47,6 +47,8 @@ document.addEventListener("DOMContentLoaded", function () {
   }   
 
   function loadContentP3(contentP3) {
+    const background = document.querySelector('.background');
+    background.style.opacity = '0';
     let contentUrl3 = '';
     switch (contentP3) {
       case 'p3-1': contentUrl3 = 'p3-1.html'; break;
