@@ -72,13 +72,13 @@ document.addEventListener("DOMContentLoaded", function () {
     const bgImage = work.getAttribute('data-bg');
     const background = document.querySelector('.background');
 
-    background.style.transition = 'opacity 0.7s ease 0.3s';
+    background.style.transition = 'opacity 0.5s ease 0.5s';
     background.style.opacity = '0';
 
     setTimeout(() => {
         background.style.backgroundImage = `url(${bgImage})`;
 
-        background.style.transition = 'opacity 0.7s ease 0.3s';
+        background.style.transition = 'opacity 0.5s ease 0.5s';
         background.style.opacity = '0.4';
     }, 700); 
 }
