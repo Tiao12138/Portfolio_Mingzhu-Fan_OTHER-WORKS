@@ -58,8 +58,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     if (contentUrl3) {
       loadContent(contentUrl3); 
-      const background = document.querySelector('.background');
-      background.style.opacity = '0';
     }
   }
 
@@ -95,6 +93,8 @@ document.addEventListener("DOMContentLoaded", function () {
   function applyP3ClickListeners() {
     document.querySelectorAll('.otherwork').forEach(text => {
       text.addEventListener('click', function () {
+        const background = document.querySelector('.background');
+        background.style.opacity = '0';
         const contentP3 = this.getAttribute('p3-content');
         loadContentP3(contentP3); 
       });
