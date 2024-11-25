@@ -91,6 +91,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   function applyP3ClickListeners() {
+    const background = document.querySelector('.background');
+    background.style.opacity = '0';
     document.querySelectorAll('.otherwork').forEach(text => {
       text.addEventListener('click', function () {
         const background = document.querySelector('.background');
