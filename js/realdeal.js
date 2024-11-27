@@ -13,21 +13,22 @@ document.addEventListener("DOMContentLoaded", function () {
         case 'p3': contentUrl = 'p3.html'; break;
         default: contentUrl = 'p3.html';
       }
-      loadContent(contentUrl);  // Load the selected content
+      loadContent(contentUrl); 
     });
   });
   
-  // Function to load content into navContainer
   function loadContent(contentUrl) {
+    const background = document.querySelector('.background');
+    background.classList.add('loading');
     fetch(contentUrl)
       .then(response => response.text())
       .then(data => {
+        background.classList.remove('loading'); 
         navContainer.innerHTML = data;  
         applyHoverTextListeners();      
         applyP3ClickListeners();
         applyhoverbgeffect();
   
-        // Add scroll functionality and click listener for back-to-top button after content loads
         const backToTopButton = document.getElementById("backToTop");
         if (backToTopButton) {
           window.onscroll = function () {
@@ -49,14 +50,19 @@ document.addEventListener("DOMContentLoaded", function () {
   function loadContentP3(contentP3) {
     const background = document.querySelector('.background');
     background.style.opacity = '0';
+    if (bgTimeout) clearTimeout(bgTimeout);
+
     let contentUrl3 = '';
     switch (contentP3) {
       case 'p3-1': contentUrl3 = 'p3-1.html'; break;
       case 'p3-2': contentUrl3 = 'p3-2.html'; break;
       case 'p3-3': contentUrl3 = 'p3-3.html'; break;
+      case 'p3-4': contentUrl3 = 'p3-4.html'; break;
       default: contentUrl3 = 'p3.html';
     }
     if (contentUrl3) {
+      const background = document.querySelector('.background');
+      background.style.opacity = '0';
       loadContent(contentUrl3); 
     }
   }
@@ -68,12 +74,16 @@ document.addEventListener("DOMContentLoaded", function () {
     })
   }
 
+  let bgTimeout; 
+
   function showbg(work) {
     const bgImage = work.getAttribute('data-bg');
     const background = document.querySelector('.background');
 
     background.style.transition = 'opacity 0.7s ease 0.3s';
     background.style.opacity = '0';
+
+    if (bgTimeout) clearTimeout(bgTimeout);
 
     setTimeout(() => {
         background.style.backgroundImage = `url(${bgImage})`;
@@ -91,8 +101,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   function applyP3ClickListeners() {
-    const background = document.querySelector('.background');
-    background.style.opacity = '0';
     document.querySelectorAll('.otherwork').forEach(text => {
       text.addEventListener('click', function () {
         const background = document.querySelector('.background');
