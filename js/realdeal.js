@@ -49,7 +49,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function loadContentP3(contentP3) {
     const background = document.querySelector('.background');
+    background.style.transition = 'none';
     background.style.opacity = '0';
+    background.style.backgroundImage = '';
+
     if (bgTimeout) clearTimeout(bgTimeout);
 
     let contentUrl3 = '';
@@ -67,57 +70,80 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  function applyhoverbgeffect(){
-    document.querySelectorAll('.otherwork').forEach(work=>{
-      work.addEventListener('mouseover', () => showbg(work));
-      work.addEventListener('mouseout', () => hidebg(work));
-    })
+  function applyhoverbgeffect() {
+    const works = document.querySelectorAll('.otherwork');
+    works.forEach(work => {
+      work.addEventListener('mouseover', () => {
+        if (work.dataset.bg) showbg(work); 
+      });
+      work.addEventListener('mouseout', () => {
+        if (work.dataset.bg) hidebg(); 
+      });
+    });
   }
 
-  let bgTimeout; 
-
+  let currentBgTimeout; 
+  let isBgChanging = false; 
+  
   function showbg(work) {
     const bgImage = work.getAttribute('data-bg');
     const background = document.querySelector('.background');
-
-    background.style.transition = 'opacity 0.7s ease 0.3s';
-    background.style.opacity = '0';
-
-    if (bgTimeout) clearTimeout(bgTimeout);
-
-    setTimeout(() => {
-        background.style.backgroundImage = `url(${bgImage})`;
-
-        background.style.transition = 'opacity 0.7s ease 0.3s';
-        background.style.opacity = '0.4';
-    }, 700); 
-}
   
-  function hidebg(work) {
-    const bgImage = work.getAttribute('data-bg');
-    const background = document.querySelector('.background');
-    background.style.opacity = '0';
+    if (currentBgTimeout) clearTimeout(currentBgTimeout);
+    if (isBgChanging) {
+      background.style.transition = 'none'; 
+      background.style.opacity = '0';
+    }
+  
+    background.style.backgroundImage = `url(${bgImage})`;
+  
+    isBgChanging = true; 
+    currentBgTimeout = setTimeout(() => {
+      background.style.transition = 'opacity 0.7s ease 0.3s'; 
+      background.style.opacity = '0.4'; 
+      isBgChanging = false; 
+    }, 50); 
   }
-
+  
+  function hidebg() {
+    const background = document.querySelector('.background');
+  
+    if (currentBgTimeout) clearTimeout(currentBgTimeout);
+    if (isBgChanging) {
+      background.style.transition = 'none'; 
+    }
+  
+    background.style.opacity = '0'; 
+    setTimeout(() => {
+      if (background.style.opacity === '0') {
+        background.style.backgroundImage = ''; 
+      }
+    }, 300); 
+  }
 
   function applyP3ClickListeners() {
     document.querySelectorAll('.otherwork').forEach(text => {
-      text.addEventListener('click', function () {
-        const background = document.querySelector('.background');
-        background.style.opacity = '0';
+      text.addEventListener('click', function (event) {
+        event.stopPropagation();//阻止事件冒泡
         const contentP3 = this.getAttribute('p3-content');
         loadContentP3(contentP3); 
       });
     });
   }
 
-  function applyHoverTextListeners() {
-    const images = document.querySelectorAll('.cover');
-    images.forEach(img => {
-      img.addEventListener('mouseover', () => showText(img));
-      img.addEventListener('mouseout', () => hideText(img));
+  function applyhoverbgeffect() {
+    const works = document.querySelectorAll('.otherwork');
+    works.forEach(work => {
+      work.addEventListener('mouseover', () => {
+        if (work.dataset.bg) showbg(work); 
+      });
+      work.addEventListener('mouseout', () => {
+        if (work.dataset.bg) hidebg(); 
+      });
     });
   }
+  
+  
   
   function showText(img) {
     const hoverText = img.parentElement.querySelector('.hovertext');
