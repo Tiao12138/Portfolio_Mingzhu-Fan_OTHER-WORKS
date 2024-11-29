@@ -25,7 +25,6 @@ document.addEventListener("DOMContentLoaded", function () {
       .then(data => {
         background.classList.remove('loading'); 
         navContainer.innerHTML = data;  
-        applyHoverTextListeners();      
         applyP3ClickListeners();
         applyhoverbgeffect();
   
@@ -49,10 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function loadContentP3(contentP3) {
     const background = document.querySelector('.background');
-    background.style.transition = 'none';
     background.style.opacity = '0';
-    background.style.backgroundImage = '';
-
     if (bgTimeout) clearTimeout(bgTimeout);
 
     let contentUrl3 = '';
@@ -70,57 +66,61 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  function applyhoverbgeffect() {
-    const works = document.querySelectorAll('.otherwork');
-    works.forEach(work => {
-      work.addEventListener('mouseover', () => {
-        if (work.dataset.bg) showbg(work); 
-      });
-      work.addEventListener('mouseout', () => {
-        if (work.dataset.bg) hidebg(); 
-      });
-    });
-  }
 
   let currentBgTimeout; 
   let isBgChanging = false; 
 
-  function showbg(work) {
-    const bgImage = work.getAttribute('data-bg');
-    const background = document.querySelector('.background');
+function showbg(work) {
+  const bgImage = work.getAttribute('data-bg');
+  const background = document.querySelector('.background');
 
-    if (currentBgTimeout) clearTimeout(currentBgTimeout);
-    if (isBgChanging) {
-      background.style.transition = 'none'; 
-      background.style.opacity = '0'; 
-    }
-
-    background.style.backgroundImage = `url(${bgImage})`;
-
-    isBgChanging = true; 
-    currentBgTimeout = setTimeout(() => {
-      background.style.transition = 'opacity 0.7s ease 0.3s'; 
-      background.style.opacity = '0.4'; 
-      isBgChanging = false; 
-    }, 50); 
+  if (currentBgTimeout) clearTimeout(currentBgTimeout);
+  if (isBgChanging) {
+    background.style.transition = 'none'; // 立即停止过渡
+    background.style.opacity = '0'; // 直接隐藏当前背景
   }
 
-  function hidebg() {
-    const background = document.querySelector('.background');
+  // 设置新的背景图像并立即加载
+  background.style.backgroundImage = `url(${bgImage})`;
 
-    if (currentBgTimeout) clearTimeout(currentBgTimeout);
-    if (isBgChanging) {
-      background.style.transition = 'none'; 
-    }
+  isBgChanging = true; // 标记正在过渡
+  currentBgTimeout = setTimeout(() => {
+    background.style.transition = 'opacity 0.7s ease 0.3s'; // 重新启用过渡
+    background.style.opacity = '0.4'; // 渐显
+    isBgChanging = false; // 过渡完成
+  }, 50); // 减少延时以更快响应
+}
 
-    background.style.opacity = '0';
-    setTimeout(() => {
-      if (background.style.opacity === '0') {
-        background.style.backgroundImage = ''; 
-      }
-    }, 300); 
+function hidebg() {
+  const background = document.querySelector('.background');
+
+  // 如果正在过渡，立即停止
+  if (currentBgTimeout) clearTimeout(currentBgTimeout);
+  if (isBgChanging) {
+    background.style.transition = 'none'; // 立即停止过渡
   }
 
+  // 开始隐藏背景
+  background.style.opacity = '0'; // 立即隐藏
+  setTimeout(() => {
+    if (background.style.opacity === '0') {
+      background.style.backgroundImage = ''; // 清空背景图像
+    }
+  }, 300); // 延迟清除背景图像，防止闪烁
+}
+
+
+
+  function applyP3ClickListeners() {
+    document.querySelectorAll('.otherwork').forEach(text => {
+      text.addEventListener('click', function () {
+        const background = document.querySelector('.background');
+        background.style.opacity = '0';
+        const contentP3 = this.getAttribute('p3-content');
+        loadContentP3(contentP3); 
+      });
+    });
+  }
 
   function applyhoverbgeffect() {
     const works = document.querySelectorAll('.otherwork');
@@ -133,37 +133,8 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     });
   }
-
-
-  function applyhoverbgeffect() {
-    const works = document.querySelectorAll('.otherwork');
-    works.forEach(work => {
-      work.addEventListener('mouseover', () => {
-        if (work.dataset.bg) showbg(work); 
-      });
-      work.addEventListener('mouseout', () => {
-        if (work.dataset.bg) hidebg(); 
-      });
-    });
-  }
   
-  function showText(img) {
-    const hoverText = img.parentElement.querySelector('.hovertext');
-    const hoverTextDisplay = document.getElementById('hover-text-display');
-    if (hoverText && hoverTextDisplay) {
-      hoverTextDisplay.textContent = hoverText.textContent; 
-      hoverTextDisplay.classList.add('show'); 
-    }
-  }
-  
-  function hideText() {
-    const hoverTextDisplay = document.getElementById('hover-text-display');
-    if (hoverTextDisplay) {
-      hoverTextDisplay.classList.remove('show'); // Hide the text smoothly
-    }
-  }
 
-  applyHoverTextListeners();
   applyP3ClickListeners();
   applyhoverbgeffect();
 });
