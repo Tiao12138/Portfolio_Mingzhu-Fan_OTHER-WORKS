@@ -60,8 +60,6 @@ document.addEventListener("DOMContentLoaded", function () {
       default: contentUrl3 = 'p3.html';
     }
     if (contentUrl3) {
-      const background = document.querySelector('.background');
-      background.style.opacity = '0';
       loadContent(contentUrl3); 
     }
   }
@@ -69,6 +67,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   let currentBgTimeout; 
   let isBgChanging = false; 
+  let bgTimeout;
 
 function showbg(work) {
   const bgImage = work.getAttribute('data-bg');
