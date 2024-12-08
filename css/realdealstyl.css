@@ -202,19 +202,15 @@ img.present1{
 
 .row {
   display: flex;
-  flex-wrap: wrap; 
-  justify-content: center; 
-  gap: 1vw; 
+  flex-wrap: wrap;
+  gap: 1vw;
   margin-top: 4rem;
 }
 
-.box {
-  flex: 0 0 30vw; 
-  width: 29vw; 
-  height: auto;   
-  display: block;
-  justify-content: center;
-  align-items: flex-start;
+.row > .box {
+  flex: 0 0 30vw;
+  width: 29vw;
+  height: auto;
   overflow: hidden;
   margin-bottom: 2rem;
 }
