@@ -61,6 +61,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     if (contentUrl3) {
       loadContent(contentUrl3); 
+      boxlayout();
     }
   }
 
@@ -69,45 +70,51 @@ document.addEventListener("DOMContentLoaded", function () {
   let isBgChanging = false; 
   let bgTimeout;
 
-function showbg(work) {
-  const bgImage = work.getAttribute('data-bg');
-  const background = document.querySelector('.background');
+  function showbg(work) {
+    const bgImage = work.getAttribute('data-bg');
+    const background = document.querySelector('.background');
 
-  if (currentBgTimeout) clearTimeout(currentBgTimeout);
-  if (isBgChanging) {
-    background.style.transition = 'none'; // 立即停止过渡
-    background.style.opacity = '0'; // 直接隐藏当前背景
-  }
-
-  // 设置新的背景图像并立即加载
-  background.style.backgroundImage = `url(${bgImage})`;
-
-  isBgChanging = true; // 标记正在过渡
-  currentBgTimeout = setTimeout(() => {
-    background.style.transition = 'opacity 0.7s ease 0.3s'; // 重新启用过渡
-    background.style.opacity = '0.4'; // 渐显
-    isBgChanging = false; // 过渡完成
-  }, 50); // 减少延时以更快响应
-}
-
-function hidebg() {
-  const background = document.querySelector('.background');
-
-  // 如果正在过渡，立即停止
-  if (currentBgTimeout) clearTimeout(currentBgTimeout);
-  if (isBgChanging) {
-    background.style.transition = 'none'; // 立即停止过渡
-  }
-
-  // 开始隐藏背景
-  background.style.opacity = '0'; // 立即隐藏
-  setTimeout(() => {
-    if (background.style.opacity === '0') {
-      background.style.backgroundImage = ''; // 清空背景图像
+    if (currentBgTimeout) clearTimeout(currentBgTimeout);
+    if (isBgChanging) {
+      background.style.transition = 'none'; 
+      background.style.opacity = '0'; 
     }
-  }, 300); // 延迟清除背景图像，防止闪烁
-}
 
+    background.style.backgroundImage = `url(${bgImage})`;
+
+    isBgChanging = true;
+    currentBgTimeout = setTimeout(() => {
+      background.style.transition = 'opacity 0.7s ease 0.3s'; 
+      background.style.opacity = '0.4'; 
+      isBgChanging = false; 
+    }, 50); 
+  }
+
+  function hidebg() {
+    const background = document.querySelector('.background');
+
+    if (currentBgTimeout) clearTimeout(currentBgTimeout);
+    if (isBgChanging) {
+      background.style.transition = 'none'; 
+    }
+
+    background.style.opacity = '0'; 
+    setTimeout(() => {
+      if (background.style.opacity === '0') {
+        background.style.backgroundImage = ''; 
+      }
+    }, 300); 
+  }
+
+  function boxlayout (){
+    const row = document.querySelector('.row');
+    const boxes = row.children;
+    if (boxes.length === 1) {
+      row.style.justifyContent = 'flex-start'; // Align single box to the left
+    } else {
+      row.style.justifyContent = 'flex-start'; // For two or more boxes, this remains aligned
+    }
+  }
 
 
   function applyP3ClickListeners() {
@@ -125,12 +132,21 @@ function hidebg() {
     const works = document.querySelectorAll('.otherwork');
     works.forEach(work => {
       work.addEventListener('mouseover', () => {
-        if (work.dataset.bg) showbg(work); // 显示背景
+        if (work.dataset.bg) showbg(work); 
       });
       work.addEventListener('mouseout', () => {
-        if (work.dataset.bg) hidebg(); // 隐藏背景
+        if (work.dataset.bg) hidebg(); 
       });
     });
+  }
+
+  const row = document.querySelector('.row');
+  const boxes = row.children;
+
+  if (boxes.length === 1) {
+    row.style.justifyContent = 'flex-start'; 
+  } else {
+    row.style.justifyContent = 'flex-start'; 
   }
   
 
