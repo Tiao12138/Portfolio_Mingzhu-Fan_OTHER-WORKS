@@ -264,6 +264,12 @@ img.cover:hover .hovertext {
   display: block;
 }
 
+img.coverstil{
+  width: 100%;   
+  height: auto;  
+  object-fit: cover;  
+}
+
 a {
   color: #fff;
   text-decoration: none;
@@ -271,4 +277,16 @@ a {
 
 a:hover{
   color: #fff;
+}
+
+#back{
+  cursor: pointer;
+  height: auto;
+  max-height: 3.5rem; 
+  width: auto;
+  object-fit: contain;
+}
+
+#back:hover{
+filter: brightness(1.2);
 }
