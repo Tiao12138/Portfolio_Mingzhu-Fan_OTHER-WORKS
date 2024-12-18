@@ -70,7 +70,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const images = document.querySelectorAll('.cover');
     const defaultContent = document.querySelector('.contentsec');
     const contentSections = document.querySelectorAll('[id^="contentsec"]');
-    const back = document.getElementById("back");
 
     images.forEach(image => {
       image.addEventListener('click', () => {
@@ -81,17 +80,19 @@ document.addEventListener("DOMContentLoaded", function () {
         contentSections.forEach(section => section.classList.add('hidden'));
 
         const imageInfo = image.getAttribute('image-info');
-        const contentToShow = document.getElementById(`contentsec${imageInfo.slice(1)}`); 
+        const contentToShow = document.getElementById(`contentsec${imageInfo.slice(1)}`);
         if (contentToShow) {
           contentToShow.classList.remove('hidden');
         }
-        if (back) {
-          back.addEventListener("click", function () {
-            defaultContent.classList.remove('hidden');
-            contentToShow.classList.add('hidden');
-          });
-        }
-      });
+
+        const backButton = contentToShow.querySelector('img[id^="back"]');
+            if (backButton) {
+                backButton.addEventListener('click', () => {
+                    defaultContent.classList.remove('hidden');
+                    contentToShow.classList.add('hidden');
+                }, { once: true }); 
+            }
+        });
     });
   }
 
