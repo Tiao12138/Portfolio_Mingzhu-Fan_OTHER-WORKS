@@ -279,7 +279,7 @@ a:hover{
   color: #fff;
 }
 
-#back{
+.back{
   cursor: pointer;
   height: auto;
   max-height: 3.5rem; 
@@ -287,6 +287,6 @@ a:hover{
   object-fit: contain;
 }
 
-#back:hover{
+.back:hover{
 filter: brightness(1.5);
 }
