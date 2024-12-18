@@ -25,6 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
       .then(data => {
         background.classList.remove('loading'); 
         navContainer.innerHTML = data;  
+        applyImageClickListeners();
         applyP3ClickListeners();
         applyhoverbgeffect();
   
@@ -65,6 +66,34 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
+  function applyImageClickListeners() {
+    const images = document.querySelectorAll('.cover');
+    const defaultContent = document.querySelector('.contentsec');
+    const contentSections = document.querySelectorAll('[id^="contentsec"]');
+    const back = document.getElementById("back");
+
+    images.forEach(image => {
+      image.addEventListener('click', () => {
+        if (defaultContent) {
+          defaultContent.classList.add('hidden');
+        }
+
+        contentSections.forEach(section => section.classList.add('hidden'));
+
+        const imageInfo = image.getAttribute('image-info');
+        const contentToShow = document.getElementById(`contentsec${imageInfo.slice(1)}`); 
+        if (contentToShow) {
+          contentToShow.classList.remove('hidden');
+        }
+        if (back) {
+          back.addEventListener("click", function () {
+            defaultContent.classList.remove('hidden');
+            contentToShow.classList.add('hidden');
+          });
+        }
+      });
+    });
+  }
 
   let currentBgTimeout; 
   let isBgChanging = false; 
@@ -148,8 +177,9 @@ document.addEventListener("DOMContentLoaded", function () {
   } else {
     row.style.justifyContent = 'flex-start'; 
   }
-  
 
+  
+  applyImageClickListeners();
   applyP3ClickListeners();
   applyhoverbgeffect();
 });
