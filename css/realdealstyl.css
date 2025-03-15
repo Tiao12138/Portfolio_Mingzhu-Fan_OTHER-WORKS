@@ -243,6 +243,19 @@ img.cover:hover {
   filter: brightness(50%);
 }
 
+video.cover {
+  width: 100%;   
+  height: auto;  
+  object-fit: cover;  
+  transition: filter 0.2s ease;
+  cursor: pointer;
+  left: 50%;
+}
+
+video.cover:hover {
+  filter: brightness(50%);
+}
+
 .img-description {
   font-size: 1.125rem; 
   margin-top: 0.25px;
